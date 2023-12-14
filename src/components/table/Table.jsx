@@ -11,6 +11,7 @@ const { CARD, CASH, INVOICE } = PAYMENT_METHODS;
 
 const Table = ({ data, setData }) => {
   const [filters, setFilters] = useState({});
+  const [filtersLabel, setFiltersLabel] = useState("Show filters");
   const [displayData, setDisplayData] = useState([]);
 
   const [page, setPage] = useState(0);
@@ -75,7 +76,7 @@ const Table = ({ data, setData }) => {
 
     setFilters((prevFilters) =>
       value === ""
-          (prevFilters) => {
+        ? (prevFilters) => {
             if (Date.parse(value)) {
               const { [column]: oldFilter, ...rest } = prevFilters;
               const { [type]: oldFilterType, ...otherOldFilterTypes } =
@@ -119,10 +120,25 @@ const Table = ({ data, setData }) => {
     setData(data.filter((order) => order.orderNumber !== orderNumber));
   };
 
+  const changeFiltersLabel = () => {
+    return setFiltersLabel((prevToggleFiltersText) =>
+      prevToggleFiltersText === "Show filters" ? "Hide filters" : "Show filters"
+    );
+  };
+
   const headers = data.length ? Object.keys(data[0]) : [];
 
   return (
     <section className="table-container">
+      <label htmlFor="toggle-filters" className="toggle-filters-button">
+        {filtersLabel}
+      </label>
+      <input
+        id="toggle-filters"
+        className="toggle-filters-input"
+        type="checkbox"
+        onChange={changeFiltersLabel}
+      />
       <article className="filters">
         <section>
           <label>
@@ -132,7 +148,6 @@ const Table = ({ data, setData }) => {
               onChange={(e) => onFilterChange(e, "createdDate", "start")}
             />
           </label>
-
           <label>
             Created on end date:
             <input
@@ -141,7 +156,6 @@ const Table = ({ data, setData }) => {
             />
           </label>
         </section>
-
         <section>
           <label>
             Delivered on start date:
@@ -150,7 +164,6 @@ const Table = ({ data, setData }) => {
               onChange={(e) => onFilterChange(e, "deliveredDate", "start")}
             />
           </label>
-
           <label>
             Delivered on end date:
             <input
@@ -159,7 +172,6 @@ const Table = ({ data, setData }) => {
             />
           </label>
         </section>
-
         <section>
           <label>
             Payment method:
