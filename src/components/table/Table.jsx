@@ -13,6 +13,9 @@ const Table = ({ data, setData }) => {
   const [filters, setFilters] = useState({});
   const [displayData, setDisplayData] = useState([]);
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   useEffect(() => {
     filterData();
   }, [data, filters]);
@@ -22,8 +25,6 @@ const Table = ({ data, setData }) => {
       let match = true;
 
       for (const key in filters) {
-        console.log(filters);
-
         const startDate = filters[key].start;
         const endDate = filters[key].end;
         const startDateFormatted =
@@ -74,7 +75,17 @@ const Table = ({ data, setData }) => {
 
     setFilters((prevFilters) =>
       value === ""
-        ? (({ [name]: oldFilter, ...rest }) => rest)(prevFilters)
+          (prevFilters) => {
+            if (Date.parse(value)) {
+              const { [column]: oldFilter, ...rest } = prevFilters;
+              const { [type]: oldFilterType, ...otherOldFilterTypes } =
+                oldFilter;
+              return { ...otherOldFilterTypes, ...rest };
+            } else {
+              const { [name]: oldFilter, ...rest } = prevFilters;
+              return rest;
+            }
+          }
         : Date.parse(value)
         ? {
             ...prevFilters,
@@ -85,6 +96,15 @@ const Table = ({ data, setData }) => {
           }
         : { ...prevFilters, [name]: value }
     );
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   const handleMarkAsDeclined = (orderNumber) => {
@@ -100,7 +120,6 @@ const Table = ({ data, setData }) => {
   };
 
   const headers = data.length ? Object.keys(data[0]) : [];
-
 
   return (
     <section className="table-container">
@@ -184,7 +203,13 @@ const Table = ({ data, setData }) => {
           </tr>
         </thead>
         <tbody>
-          {displayData.map((row) => (
+          {(rowsPerPage > 0
+            ? displayData.slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )
+            : displayData
+          ).map((row) => (
             <tr key={row.orderNumber}>
               {headers.map((header) => (
                 <td key={header}>
@@ -209,6 +234,41 @@ const Table = ({ data, setData }) => {
           ))}
         </tbody>
       </table>
+      <section className="pagination">
+        <label htmlFor="rows-per-page">Rows per page:</label>
+        <select
+          id="rows-per-page"
+          value={rowsPerPage}
+          onChange={handleChangeRowsPerPage}
+        >
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </select>
+
+        <span className="showing">
+          Showing {page * rowsPerPage + 1}-
+          {Math.min((page + 1) * rowsPerPage, displayData.length)} of{" "}
+          {displayData.length}
+        </span>
+
+        <button
+          className="prev"
+          onClick={(e) => handleChangePage(e, page - 1)}
+          disabled={page === 0}
+        >
+          Prev
+        </button>
+
+        <button
+          className="next"
+          onClick={(e) => handleChangePage(e, page + 1)}
+          disabled={page >= Math.ceil(displayData.length / rowsPerPage) - 1}
+        >
+          Next
+        </button>
+      </section>
     </section>
   );
 };
