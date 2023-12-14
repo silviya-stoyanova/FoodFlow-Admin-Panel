@@ -1,4 +1,6 @@
 const MANAGE_ORDERS_TITLE = "Manage orders";
+const REJECT_PROMPT_TEXT = "Are you sure you want to reject this item?";
+const DELETE_PROMPT_TEXT = "Are you sure you want to delete this item?";
 
 const PAYMENT_METHODS = {
   ALL: "All",
@@ -28,6 +30,8 @@ const FILTERS_LABELS = {
 
 export {
   MANAGE_ORDERS_TITLE,
+  REJECT_PROMPT_TEXT,
+  DELETE_PROMPT_TEXT,
   PAYMENT_METHODS,
   STATUSES,
   DATE_TYPES,

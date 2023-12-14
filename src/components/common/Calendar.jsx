@@ -1,9 +1,9 @@
 import React from "react";
 
-const Calendar = ({ labelText, onChange }) => (
-  <label>
+const Calendar = ({ labelText, className, labelClassName, onChange }) => (
+  <label className={labelClassName}>
     {labelText}
-    <input type="date" onChange={onChange} />
+    <input type="date" className={className} onChange={onChange} />
   </label>
 );
 

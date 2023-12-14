@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { filtersDateElements, filtersSelectElements } from "../../utils/strings";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import {
+  filtersDateElements,
+  filtersSelectElements,
+} from "../../utils/strings";
 import { DATE_TYPES, FILTERS_LABELS } from "../../utils/constants";
 import { checkIsInRange, reverseDate } from "../../utils/common";
 import Checkbox from "../common/Checkbox";
@@ -21,11 +25,18 @@ const Filters = ({ data, setDisplayData }) => {
     const filteredData = data.filter((item) => {
       for (const key in filters) {
         const { start: startDate, end: endDate } = filters[key];
-        const startDateFormatted = startDate && new Date(reverseDate(startDate));
+        const startDateFormatted =
+          startDate && new Date(reverseDate(startDate));
         const endDateFormatted = endDate && new Date(reverseDate(endDate));
-        const isInRange = checkIsInRange(item[key], startDateFormatted, endDateFormatted);
-        const isBeforeStartDate = startDate && item[key] < new Date(reverseDate(startDate));
-        const isAfterEndDate = item[key] > endDateFormatted || item[key].length === 0;
+        const isInRange = checkIsInRange(
+          item[key],
+          startDateFormatted,
+          endDateFormatted
+        );
+        const isBeforeStartDate =
+          startDate && item[key] < new Date(reverseDate(startDate));
+        const isAfterEndDate =
+          item[key] > endDateFormatted || item[key].length === 0;
         const areDifferent = item[key].toString() !== filters[key].toString();
 
         // if column does not store Date
@@ -51,28 +62,29 @@ const Filters = ({ data, setDisplayData }) => {
   const onFilterChange = (e, column = null, type = null) => {
     const { name, value } = e.target;
 
-    setFilters((prevFilters) =>
-      value === ""         // When filters are removed.
-        ? ((prevFilters) => { 
-            if (column === CREATED_DATE || column === DELIVERED_DATE) {
-              const { [column]: oldFilter, ...rest } = prevFilters;
-              const { [type]: oldFilterType, ...otherOldFilterTypes } = oldFilter;
-              return { [column]: otherOldFilterTypes, ...rest };
-
-            } else {
-              const { [name]: oldFilter, ...rest } = prevFilters;
-              return rest;
+    setFilters(
+      (prevFilters) =>
+        value === "" // When filters are removed.
+          ? ((prevFilters) => {
+              if (column === CREATED_DATE || column === DELIVERED_DATE) {
+                const { [column]: oldFilter, ...rest } = prevFilters;
+                const { [type]: oldFilterType, ...otherOldFilterTypes } =
+                  oldFilter;
+                return { [column]: otherOldFilterTypes, ...rest };
+              } else {
+                const { [name]: oldFilter, ...rest } = prevFilters;
+                return rest;
+              }
+            })(prevFilters)
+          : Date.parse(value) // When a filter by date is applied.
+          ? {
+              ...prevFilters,
+              [column]: {
+                ...prevFilters[column],
+                [type]: value,
+              },
             }
-          })(prevFilters)
-        : Date.parse(value) // When a filter by date is applied.
-        ? {
-            ...prevFilters,
-            [column]: {
-              ...prevFilters[column],
-              [type]: value,
-            },
-          }
-        : { ...prevFilters, [name]: value }  // When filter by any of the other fields is applied.
+          : { ...prevFilters, [name]: value } // When filter by any of the other fields is applied.
     );
   };
 
@@ -88,12 +100,15 @@ const Filters = ({ data, setDisplayData }) => {
         label={filtersLabel}
         labelClassName="toggle-filters-button"
         onChange={changeFiltersLabel}
+        icon={faFilter}
       />
       <article className="filters">
         {filtersDateElements.map(({ labelText, column, type }, index) => (
           <Calendar
             key={index}
             labelText={labelText}
+            className="filters-calendar"
+            labelClassName="filters-label"
             onChange={(e) => onFilterChange(e, column, type)}
           />
         ))}
@@ -106,6 +121,8 @@ const Filters = ({ data, setDisplayData }) => {
               options={options}
               values={values}
               labelText={labelText}
+              className="filters-select"
+              labelClassName="filters-label"
             />
           )
         )}

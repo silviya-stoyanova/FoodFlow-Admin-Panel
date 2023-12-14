@@ -31,25 +31,29 @@ const Pagination = ({
         id="rows-per-page"
         selectValue={rowsPerPage}
         onChange={handleChangeRowsPerPage}
-        options={[10, 25, 50, 100]}
-        values={[10, 25, 50, 100]}
+        options={[5, 10, 25, 50]}
+        values={[5, 10, 25, 50]}
         labelText="Rows per page:"
+        className="pagination-label-select"
+        labelClassName="pagination-label"
       />
-      <span className="showing">
+      <p className="showing">
         Showing {firstItemOnPage}-{lastItemOnPage} of {totalItems} item(s)
-      </span>
-      <Button
-        className="prev"
-        text="Prev"
-        disabled={isPrevButtonDisabled}
-        onClick={() => handleChangePage(page - 1)}
-      />
-      <Button
-        className="next"
-        text="Next"
-        disabled={isNextButtonDisabled}
-        onClick={() => handleChangePage(page + 1)}
-      />
+      </p>
+      <article>
+        <Button
+          className="pagination-prev-button"
+          text="Prev"
+          disabled={isPrevButtonDisabled}
+          onClick={() => handleChangePage(page - 1)}
+        />
+        <Button
+          className="pagination-next-button"
+          text="Next"
+          disabled={isNextButtonDisabled}
+          onClick={() => handleChangePage(page + 1)}
+        />
+      </article>
     </section>
   );
 };
