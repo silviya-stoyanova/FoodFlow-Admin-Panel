@@ -21,4 +21,15 @@ const DATE_TYPES = {
   END: "end",
 };
 
-export { MANAGE_ORDERS_TITLE, PAYMENT_METHODS, STATUSES, DATE_TYPES };
+const FILTERS_LABELS = {
+  SHOW_FILTERS: "Show filters",
+  HIDE_FILTERS: "Hide filters",
+};
+
+export {
+  MANAGE_ORDERS_TITLE,
+  PAYMENT_METHODS,
+  STATUSES,
+  DATE_TYPES,
+  FILTERS_LABELS,
+};

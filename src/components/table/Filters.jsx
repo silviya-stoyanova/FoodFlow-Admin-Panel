@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { reverseDate } from "../../utils/utils";
-import { DATE_TYPES } from "../../utils/constants";
+import { filtersDateElements, filtersSelectElements } from "../../utils/strings";
+import { DATE_TYPES, FILTERS_LABELS } from "../../utils/constants";
+import { reverseDate } from "../../utils/common";
 import Calendar from "../common/Calendar";
 import Select from "../common/Select";
-import {
-  filtersDateElements,
-  filtersSelectElements,
-} from "../../utils/strings";
+import Checkbox from "../common/Checkbox";
 
 const { CREATED_DATE, DELIVERED_DATE } = DATE_TYPES;
+const { SHOW_FILTERS, HIDE_FILTERS } = FILTERS_LABELS;
 
 const Filters = ({ data, setDisplayData }) => {
   const [filters, setFilters] = useState({});
+  const [filtersLabel, setFiltersLabel] = useState(SHOW_FILTERS);
 
   useEffect(() => {
     filterData();
@@ -93,24 +93,42 @@ const Filters = ({ data, setDisplayData }) => {
     );
   };
 
+  const changeFiltersLabel = () => {
+    return setFiltersLabel((prevToggleFiltersText) =>
+      prevToggleFiltersText === SHOW_FILTERS ? HIDE_FILTERS : SHOW_FILTERS
+    );
+  };
+
   return (
-    <article className="filters">
-      {filtersDateElements.map(({ labelText, column, type }) => (
-        <Calendar
-          labelText={labelText}
-          onChange={(e) => onFilterChange(e, column, type)}
-        />
-      ))}
-      {filtersSelectElements.map(({ name, options, values, labelText }) => (
-        <Select
-          onChange={onFilterChange}
-          name={name}
-          options={options}
-          values={values}
-          labelText={labelText}
-        />
-      ))}
-    </article>
+    <>
+      <Checkbox
+        id="toggle-filters"
+        label={filtersLabel}
+        labelClassName="toggle-filters-button"
+        onChange={changeFiltersLabel}
+      />
+      <article className="filters">
+        {filtersDateElements.map(({ labelText, column, type }, index) => (
+          <Calendar
+            key={index}
+            labelText={labelText}
+            onChange={(e) => onFilterChange(e, column, type)}
+          />
+        ))}
+        {filtersSelectElements.map(
+          ({ name, options, values, labelText }, index) => (
+            <Select
+              key={index}
+              onChange={onFilterChange}
+              name={name}
+              options={options}
+              values={values}
+              labelText={labelText}
+            />
+          )
+        )}
+      </article>
+    </>
   );
 };
 

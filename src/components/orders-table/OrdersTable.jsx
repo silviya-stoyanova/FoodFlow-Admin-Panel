@@ -8,7 +8,7 @@ import {
 import {
   formatCellWithDate,
   formatBooleanCellWithIcon,
-} from "../../utils/utils";
+} from "../../utils/common";
 import { getOrdersData } from "../../services/get-data";
 import Table from "../table/Table";
 import { MANAGE_ORDERS_TITLE } from "../../utils/constants";
