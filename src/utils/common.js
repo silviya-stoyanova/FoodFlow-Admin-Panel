@@ -1,6 +1,3 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 const formatCellWithDate = (cell) =>
   cell instanceof Date && cell.toLocaleDateString("en-GB", "dd/MM/YYYY");
 
@@ -14,16 +11,4 @@ const reverseDate = (date) => date.split("/").reverse().join("/");
 const checkIsInRange = (date, startDate, endDate) =>
   date >= startDate && date <= endDate;
 
-const renderBooleanIcon = (cell, truthyIcon, falsyIcon) =>
-  cell === true ? (
-    <FontAwesomeIcon icon={truthyIcon} color="#656565" />
-  ) : (
-    <FontAwesomeIcon icon={falsyIcon} color="#D32F2F" />
-  );
-export {
-  formatCellWithDate,
-  reverseDate,
-  checkIsInRange,
-  convertToTitleCase,
-  renderBooleanIcon,
-};
+export { formatCellWithDate, reverseDate, checkIsInRange, convertToTitleCase };

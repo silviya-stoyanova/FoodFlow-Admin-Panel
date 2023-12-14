@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { faClose, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { convertToTitleCase, formatCellWithDate, renderBooleanIcon } from "../../utils/common";
+import { convertToTitleCase, formatCellWithDate } from "../../utils/common";
 import { STATUSES } from "../../utils/constants";
 import Button from "../common/Button";
 import Pagination from "./Pagination";
 import Filters from "./Filters";
+import BooleanIcon from "../common/BooleanIcon";
 
 const { REJECTED } = STATUSES;
 
@@ -16,7 +17,8 @@ const Table = ({ data, setData }) => {
   const headers = data.length ? Object.keys(data[0]) : [];
   const firstRowOnPage = page * rowsPerPage;
   const lastRowOnPage = page * rowsPerPage + rowsPerPage;
-  const rows = rowsPerPage > 0
+  const rows =
+    rowsPerPage > 0
       ? displayData.slice(firstRowOnPage, lastRowOnPage)
       : displayData;
 
@@ -51,11 +53,17 @@ const Table = ({ data, setData }) => {
             <tr key={index}>
               {headers.map((header) => (
                 <td key={header}>
-                  {row[header] instanceof Date
-                    ? formatCellWithDate(row[header])
-                    : typeof row[header] === "boolean"
-                    ? renderBooleanIcon(row[header], faCheck, faClose)
-                    : row[header]}
+                  {row[header] instanceof Date ? (
+                    formatCellWithDate(row[header])
+                  ) : typeof row[header] === "boolean" ? (
+                    <BooleanIcon
+                      boolean={row[header]}
+                      truthyIcon={faCheck}
+                      falsyIcon={faClose}
+                    />
+                  ) : (
+                    row[header]
+                  )}
                 </td>
               ))}
               <td>
