@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { faClose, faCheck } from "@fortawesome/free-solid-svg-icons";
-import {
-  convertToTitleCase,
-  formatCellWithDate,
-  renderBooleanIcon,
-} from "../../utils/common";
+import { convertToTitleCase, formatCellWithDate, renderBooleanIcon } from "../../utils/common";
 import { STATUSES } from "../../utils/constants";
 import Button from "../common/Button";
 import Pagination from "./Pagination";
@@ -13,30 +9,32 @@ import Filters from "./Filters";
 const { REJECTED } = STATUSES;
 
 const Table = ({ data, setData }) => {
-  const [displayData, setDisplayData] = useState([]);
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [displayData, setDisplayData] = useState([]);
 
+  const headers = data.length ? Object.keys(data[0]) : [];
+  const firstRowOnPage = page * rowsPerPage;
+  const lastRowOnPage = page * rowsPerPage + rowsPerPage;
+  const rows = rowsPerPage > 0
+      ? displayData.slice(firstRowOnPage, lastRowOnPage)
+      : displayData;
 
-  const handleMarkAsDeclined = (orderNumber) => {
+  const markAsRejected = (id) => {
     setData(
-      data.map((order) => ({
-        ...order,
-        status: order.orderNumber === orderNumber ? REJECTED : order.status,
+      data.map((row) => ({
+        ...row,
+        status: row.id === id ? REJECTED : row.status,
       }))
     );
   };
 
-  const handleDelete = (orderNumber) => {
-    setData(data.filter((order) => order.orderNumber !== orderNumber));
+  const handleDelete = (id) => {
+    setData(data.filter((row) => row.id !== id));
   };
-
-  const headers = data.length ? Object.keys(data[0]) : [];
 
   return (
     <section className="table-container">
-
       <Filters data={data} setDisplayData={setDisplayData} />
 
       <table className="table">
@@ -49,14 +47,8 @@ const Table = ({ data, setData }) => {
           </tr>
         </thead>
         <tbody>
-          {(rowsPerPage > 0
-            ? displayData.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : displayData
-          ).map((row) => (
-            <tr key={row.orderNumber}>
+          {rows.map((row, index) => (
+            <tr key={index}>
               {headers.map((header) => (
                 <td key={header}>
                   {row[header] instanceof Date
@@ -67,14 +59,8 @@ const Table = ({ data, setData }) => {
                 </td>
               ))}
               <td>
-                <Button
-                  text="Reject"
-                  onClick={() => handleMarkAsDeclined(row.orderNumber)}
-                />
-                <Button
-                  text="Delete"
-                  onClick={() => handleDelete(row.orderNumber)}
-                />
+                <Button text="Reject" onClick={() => markAsRejected(row.id)} />
+                <Button text="Delete" onClick={() => handleDelete(row.id)} />
               </td>
             </tr>
           ))}

@@ -5,7 +5,7 @@ const { NEW, PROCESSING, DELIVERED, REJECTED } = STATUSES;
 
 const mockedData = [
   {
-    orderNumber: 1,
+    id: 1,
     createdDate: new Date("2023-12-01"),
     deliveredDate: new Date("2023-12-03"),
     paymentMethod: CARD,
@@ -17,7 +17,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 2,
+    id: 2,
     createdDate: new Date("2023-02-10"),
     deliveredDate: new Date("2023-02-17"),
     paymentMethod: CASH,
@@ -29,7 +29,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 3,
+    id: 3,
     createdDate: new Date("2023-03-20"),
     deliveredDate: new Date("2023-03-27"),
     paymentMethod: INVOICE,
@@ -41,7 +41,7 @@ const mockedData = [
     status: REJECTED,
   },
   {
-    orderNumber: 4,
+    id: 4,
     createdDate: new Date("2023-04-05"),
     deliveredDate: "",
     paymentMethod: CARD,
@@ -53,7 +53,7 @@ const mockedData = [
     status: NEW,
   },
   {
-    orderNumber: 5,
+    id: 5,
     createdDate: new Date("2023-05-15"),
     deliveredDate: new Date("2023-05-22"),
     paymentMethod: CASH,
@@ -65,7 +65,7 @@ const mockedData = [
     status: PROCESSING,
   },
   {
-    orderNumber: 6,
+    id: 6,
     createdDate: new Date("2023-06-25"),
     deliveredDate: new Date("2023-07-02"),
     paymentMethod: INVOICE,
@@ -77,7 +77,7 @@ const mockedData = [
     status: REJECTED,
   },
   {
-    orderNumber: 7,
+    id: 7,
     createdDate: new Date("2023-07-10"),
     deliveredDate: new Date("2023-07-17"),
     paymentMethod: CARD,
@@ -89,7 +89,7 @@ const mockedData = [
     status: PROCESSING,
   },
   {
-    orderNumber: 8,
+    id: 8,
     createdDate: new Date("2023-08-20"),
     deliveredDate: "",
     paymentMethod: CASH,
@@ -101,7 +101,7 @@ const mockedData = [
     status: NEW,
   },
   {
-    orderNumber: 9,
+    id: 9,
     createdDate: new Date("2023-09-05"),
     deliveredDate: new Date("2023-09-12"),
     paymentMethod: INVOICE,
@@ -113,7 +113,7 @@ const mockedData = [
     status: REJECTED,
   },
   {
-    orderNumber: 10,
+    id: 10,
     createdDate: new Date("2023-10-15"),
     deliveredDate: new Date("2023-10-22"),
     paymentMethod: CARD,
@@ -125,7 +125,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 11,
+    id: 11,
     createdDate: new Date("2023-11-25"),
     deliveredDate: new Date("2023-12-02"),
     paymentMethod: CASH,
@@ -137,7 +137,7 @@ const mockedData = [
     status: PROCESSING,
   },
   {
-    orderNumber: 12,
+    id: 12,
     createdDate: new Date("2023-01-05"),
     deliveredDate: new Date("2023-01-12"),
     paymentMethod: INVOICE,
@@ -149,7 +149,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 13,
+    id: 13,
     createdDate: new Date("2023-02-15"),
     deliveredDate: new Date("2023-02-22"),
     paymentMethod: CARD,
@@ -161,7 +161,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 14,
+    id: 14,
     createdDate: new Date("2023-03-25"),
     deliveredDate: new Date("2023-04-01"),
     paymentMethod: CASH,
@@ -173,7 +173,7 @@ const mockedData = [
     status: REJECTED,
   },
   {
-    orderNumber: 15,
+    id: 15,
     createdDate: new Date("2023-04-10"),
     deliveredDate: new Date("2023-04-17"),
     paymentMethod: INVOICE,
@@ -185,7 +185,7 @@ const mockedData = [
     status: REJECTED,
   },
   {
-    orderNumber: 16,
+    id: 16,
     createdDate: new Date("2023-05-20"),
     deliveredDate: new Date("2023-05-27"),
     paymentMethod: CARD,
@@ -197,7 +197,7 @@ const mockedData = [
     status: PROCESSING,
   },
   {
-    orderNumber: 17,
+    id: 17,
     createdDate: new Date("2023-06-30"),
     deliveredDate: "",
     paymentMethod: CASH,
@@ -209,7 +209,7 @@ const mockedData = [
     status: NEW,
   },
   {
-    orderNumber: 18,
+    id: 18,
     createdDate: new Date("2023-08-10"),
     deliveredDate: new Date("2023-08-17"),
     paymentMethod: INVOICE,
@@ -221,7 +221,7 @@ const mockedData = [
     status: PROCESSING,
   },
   {
-    orderNumber: 19,
+    id: 19,
     createdDate: new Date("2023-09-20"),
     deliveredDate: new Date("2023-09-27"),
     paymentMethod: CARD,
@@ -233,7 +233,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 20,
+    id: 20,
     createdDate: new Date("2023-10-05"),
     deliveredDate: new Date("2023-10-12"),
     paymentMethod: CASH,
@@ -245,7 +245,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 21,
+    id: 21,
     createdDate: new Date("2023-11-15"),
     deliveredDate: new Date("2023-11-22"),
     paymentMethod: INVOICE,
@@ -257,7 +257,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 22,
+    id: 22,
     createdDate: new Date("2022-12-25"),
     deliveredDate: new Date("2023-01-04"),
     paymentMethod: CARD,
@@ -269,7 +269,7 @@ const mockedData = [
     status: DELIVERED,
   },
   {
-    orderNumber: 23,
+    id: 23,
     createdDate: new Date("2023-02-05"),
     deliveredDate: new Date("2023-02-12"),
     paymentMethod: CASH,
@@ -281,7 +281,7 @@ const mockedData = [
     status: PROCESSING,
   },
   {
-    orderNumber: 24,
+    id: 24,
     createdDate: new Date("2023-03-20"),
     deliveredDate: "",
     paymentMethod: INVOICE,
@@ -293,7 +293,7 @@ const mockedData = [
     status: NEW,
   },
   {
-    orderNumber: 25,
+    id: 25,
     createdDate: new Date("2023-04-05"),
     deliveredDate: "",
     paymentMethod: CARD,
@@ -305,7 +305,7 @@ const mockedData = [
     status: NEW,
   },
   {
-    orderNumber: 26,
+    id: 26,
     createdDate: new Date("2023-05-15"),
     deliveredDate: new Date("2023-05-22"),
     paymentMethod: CASH,

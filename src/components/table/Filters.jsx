@@ -64,7 +64,7 @@ const Filters = ({ data, setDisplayData }) => {
               return rest;
             }
           })(prevFilters)
-        : Date.parse(value) // When a filter by created date or delivered date is applied.
+        : Date.parse(value) // When a filter by date is applied.
         ? {
             ...prevFilters,
             [column]: {

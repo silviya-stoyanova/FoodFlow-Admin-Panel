@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { MANAGE_ORDERS_TITLE } from "../../utils/constants";
 import { getOrdersData } from "../../services/get-data";
 import Table from "../table/Table";
-import { MANAGE_ORDERS_TITLE } from "../../utils/constants";
 
 const OrdersTable = () => {
   const [data, setData] = useState([]);
