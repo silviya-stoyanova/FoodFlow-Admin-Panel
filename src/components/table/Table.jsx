@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { faClose, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { convertToTitleCase, formatCellWithDate } from "../../utils/common";
 import { STATUSES } from "../../utils/constants";
+import BooleanIcon from "../common/BooleanIcon";
 import Button from "../common/Button";
 import Pagination from "./Pagination";
 import Filters from "./Filters";
-import BooleanIcon from "../common/BooleanIcon";
 
 const { REJECTED } = STATUSES;
 
@@ -56,11 +55,7 @@ const Table = ({ data, setData }) => {
                   {row[header] instanceof Date ? (
                     formatCellWithDate(row[header])
                   ) : typeof row[header] === "boolean" ? (
-                    <BooleanIcon
-                      boolean={row[header]}
-                      truthyIcon={faCheck}
-                      falsyIcon={faClose}
-                    />
+                    <BooleanIcon boolean={row[header]} />
                   ) : (
                     row[header]
                   )}

@@ -1,11 +1,12 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose, faCheck } from "@fortawesome/free-solid-svg-icons";
 
-const BooleanIcon = ({ boolean, truthyIcon, falsyIcon }) =>
+const BooleanIcon = ({ boolean }) =>
   boolean ? (
-    <FontAwesomeIcon icon={truthyIcon} color="#656565" />
+    <FontAwesomeIcon icon={faCheck} color="#656565" />
   ) : (
-    <FontAwesomeIcon icon={falsyIcon} color="#D22F2F" />
+    <FontAwesomeIcon icon={faClose} color="#D22F2F" />
   );
 
 export default BooleanIcon;
