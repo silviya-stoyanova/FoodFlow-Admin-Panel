@@ -1,0 +1,55 @@
+.toggle-filters-button {
+  @extend %primary-button;
+  display: inline-flex;
+  align-items: center;
+  margin: 6px 6px 16px;
+  gap: 6px;
+
+  @media (min-width: 768px) {
+    margin: 12px 12px 16px;
+  }
+}
+
+.toggle-filters-input {
+  display: none;
+
+  &:checked + .filters {
+    display: grid;
+  }
+
+  &:not(:checked) + .filters {
+    display: none;
+  }
+}
+
+.filters {
+  gap: 6px;
+  padding: 6px;
+
+  @media (min-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 22px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 12px;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &-label {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &-calendar,
+  &-select {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid;
+    background: #ffffff;
+  }
+}

@@ -1,0 +1,68 @@
+.table-container {
+  box-shadow: $box-shadow;
+  overflow: hidden;
+  border-radius: 4px;
+  font: 14px "Roboto", "Helvetica", "Arial", sans-serif;
+
+  .table-inner-container {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 100%;
+    border-collapse: collapse;
+
+    &-header,
+    &-data {
+      padding: 8px;
+      text-align: left;
+
+      @media (min-width: 768px) {
+        padding: 10px;
+      }
+
+      @media (min-width: 992px) {
+        padding: 12px;
+      }
+
+      &-actions {
+        display: flex;
+        gap: 12px;
+
+        &-button {
+          padding: 0;
+          border: none;
+          background: none;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &-header {
+      white-space: nowrap;
+      min-width: 70px;
+
+      &:first-child {
+        min-width: 20px;
+      }
+    }
+
+    &-body {
+      .table-row {
+        &:nth-child(2n-1) {
+          background: $grey-100;
+        }
+
+        &:hover {
+          background: $grey-400;
+        }
+      }
+    }
+
+    svg {
+      margin: 0 auto;
+      display: block;
+      font-size: 20px;
+    }
+  }
+}

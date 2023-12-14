@@ -1,0 +1,26 @@
+.pagination {
+  display: flex;
+  justify-content: right;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin: 16px;
+
+  @media (min-width: 768px) {
+    margin: 18px;
+  }
+
+  &-label-select {
+    border: none;
+    background: transparent;
+  }
+
+  &-prev-button,
+  &-next-button {
+    @extend %primary-button;
+
+    &:hover:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
