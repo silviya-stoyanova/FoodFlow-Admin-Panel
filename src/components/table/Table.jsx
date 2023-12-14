@@ -76,17 +76,18 @@ const Table = ({ data, setData }) => {
 
     setFilters((prevFilters) =>
       value === ""
-        ? (prevFilters) => {
-            if (Date.parse(value)) {
+        ? ((prevFilters) => {
+            if (column === "createdDate" || "deliveredDate") {
               const { [column]: oldFilter, ...rest } = prevFilters;
               const { [type]: oldFilterType, ...otherOldFilterTypes } =
                 oldFilter;
-              return { ...otherOldFilterTypes, ...rest };
+
+              return { [column]: otherOldFilterTypes, ...rest };
             } else {
               const { [name]: oldFilter, ...rest } = prevFilters;
               return rest;
             }
-          }
+          })(prevFilters)
         : Date.parse(value)
         ? {
             ...prevFilters,
@@ -225,7 +226,7 @@ const Table = ({ data, setData }) => {
             <tr key={row.orderNumber}>
               {headers.map((header) => (
                 <td key={header}>
-                  {Date.parse(row[header])
+                  {row[header] instanceof Date
                     ? formatCellWithDate(row[header])
                     : typeof row[header] === "boolean"
                     ? row[header]
@@ -246,6 +247,7 @@ const Table = ({ data, setData }) => {
           ))}
         </tbody>
       </table>
+
       <section className="pagination">
         <label htmlFor="rows-per-page">Rows per page:</label>
         <select
@@ -260,7 +262,7 @@ const Table = ({ data, setData }) => {
         </select>
 
         <span className="showing">
-          Showing {page * rowsPerPage + 1}-
+          Showing {displayData.length ? page * rowsPerPage + 1 : 0}-
           {Math.min((page + 1) * rowsPerPage, displayData.length)} of{" "}
           {displayData.length}
         </span>

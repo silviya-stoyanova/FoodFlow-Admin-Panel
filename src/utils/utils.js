@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const formatCellWithDate = (cell) =>
-  Date.parse(cell) && cell.toLocaleDateString("en-GB", "dd/MM/YYYY");
+  cell instanceof Date && cell.toLocaleDateString("en-GB", "dd/MM/YYYY");
 
 const convertToTitleCase = (text) => {
   const words = text.replace(/([A-Z])/g, " $1").toLowerCase();
