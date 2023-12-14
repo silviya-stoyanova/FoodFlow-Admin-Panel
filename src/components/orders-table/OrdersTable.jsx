@@ -1,14 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
-import {
-  faFileInvoiceDollar,
-  faClose,
-  faUserCheck,
-  faSackDollar,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  formatCellWithDate,
-  formatBooleanCellWithIcon,
-} from "../../utils/common";
+import React, { useState, useEffect } from "react";
 import { getOrdersData } from "../../services/get-data";
 import Table from "../table/Table";
 import { MANAGE_ORDERS_TITLE } from "../../utils/constants";

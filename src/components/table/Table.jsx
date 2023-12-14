@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { convertToTitleCase, formatCellWithDate } from "../../utils/common";
+import { faClose, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  convertToTitleCase,
+  formatCellWithDate,
+  renderBooleanIcon,
+} from "../../utils/common";
 import { STATUSES } from "../../utils/constants";
 import Button from "../common/Button";
 import Pagination from "./Pagination";
@@ -57,9 +62,7 @@ const Table = ({ data, setData }) => {
                   {row[header] instanceof Date
                     ? formatCellWithDate(row[header])
                     : typeof row[header] === "boolean"
-                    ? row[header]
-                      ? "true"
-                      : "false"
+                    ? renderBooleanIcon(row[header], faCheck, faClose)
                     : row[header]}
                 </td>
               ))}

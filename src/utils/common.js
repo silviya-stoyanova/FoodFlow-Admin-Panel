@@ -14,17 +14,16 @@ const reverseDate = (date) => date.split("/").reverse().join("/");
 const checkIsInRange = (date, startDate, endDate) =>
   date >= startDate && date <= endDate;
 
-const formatBooleanCellWithIcon = (cell, truthyIcon, falsyIcon) =>
-  cell.getValue() === true ? (
+const renderBooleanIcon = (cell, truthyIcon, falsyIcon) =>
+  cell === true ? (
     <FontAwesomeIcon icon={truthyIcon} color="#656565" />
   ) : (
     <FontAwesomeIcon icon={falsyIcon} color="#D32F2F" />
   );
-
 export {
   formatCellWithDate,
   reverseDate,
   checkIsInRange,
   convertToTitleCase,
-  formatBooleanCellWithIcon,
+  renderBooleanIcon,
 };
