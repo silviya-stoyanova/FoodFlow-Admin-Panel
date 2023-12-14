@@ -5,9 +5,12 @@ import {
   formatCellWithDate,
   reverseDate,
 } from "../../utils/utils";
+import Pagination from "./Pagination";
+import Select from "../common/Select";
+import Calendar from "../common/Calendar";
 
 const { REJECTED } = STATUSES;
-const { CARD, CASH, INVOICE } = PAYMENT_METHODS;
+const { ALL, CARD, CASH, INVOICE } = PAYMENT_METHODS;
 
 const Table = ({ data, setData }) => {
   const [filters, setFilters] = useState({});
@@ -32,7 +35,7 @@ const Table = ({ data, setData }) => {
           startDate && new Date(reverseDate(startDate));
         const endDateFormatted = endDate && new Date(reverseDate(endDate));
 
-        if (!Date.parse(item[key])) {
+        if (key !== "createdDate" && key !== "deliveredDate") {
           if (item[key].toString() !== filters[key].toString()) {
             match = false;
             break;
@@ -49,16 +52,12 @@ const Table = ({ data, setData }) => {
               break;
             }
           } else if (startDate) {
-            if (item[key] >= new Date(reverseDate(startDate))) {
-              match = true;
-            } else {
+            if (item[key] < new Date(reverseDate(startDate))) {
               match = false;
               break;
             }
           } else if (endDate) {
-            if (item[key] <= endDateFormatted) {
-              match = true;
-            } else {
+            if (item[key] > endDateFormatted || item[key] === "") {
               match = false;
               break;
             }
@@ -82,6 +81,8 @@ const Table = ({ data, setData }) => {
               const { [type]: oldFilterType, ...otherOldFilterTypes } =
                 oldFilter;
 
+              // console.log({ [column]: otherOldFilterTypes, ...rest });
+
               return { [column]: otherOldFilterTypes, ...rest };
             } else {
               const { [name]: oldFilter, ...rest } = prevFilters;
@@ -98,15 +99,6 @@ const Table = ({ data, setData }) => {
           }
         : { ...prevFilters, [name]: value }
     );
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
   };
 
   const handleMarkAsDeclined = (orderNumber) => {
@@ -140,69 +132,54 @@ const Table = ({ data, setData }) => {
         type="checkbox"
         onChange={changeFiltersLabel}
       />
+
       <article className="filters">
         <section>
-          <label>
-            Created on start date:
-            <input
-              type="date"
-              onChange={(e) => onFilterChange(e, "createdDate", "start")}
-            />
-          </label>
-          <label>
-            Created on end date:
-            <input
-              type="date"
-              onChange={(e) => onFilterChange(e, "createdDate", "end")}
-            />
-          </label>
+          <Calendar
+            labelText="Created after:"
+            onChange={(e) => onFilterChange(e, "createdDate", "start")}
+          />
+          <Calendar
+            labelText="Created before:"
+            onChange={(e) => onFilterChange(e, "createdDate", "end")}
+          />
         </section>
         <section>
-          <label>
-            Delivered on start date:
-            <input
-              type="date"
-              onChange={(e) => onFilterChange(e, "deliveredDate", "start")}
-            />
-          </label>
-          <label>
-            Delivered on end date:
-            <input
-              type="date"
-              onChange={(e) => onFilterChange(e, "deliveredDate", "end")}
-            />
-          </label>
+          <Calendar
+            labelText="Delivered after:"
+            onChange={(e) => onFilterChange(e, "deliveredDate", "start")}
+          />
+          <Calendar
+            labelText="Delivered before:"
+            onChange={(e) => onFilterChange(e, "deliveredDate", "end")}
+          />
         </section>
         <section>
-          <label>
-            Payment method:
-            <select onChange={onFilterChange} name="paymentMethod">
-              <option value="">All</option>
-              <option value={CARD}>{CARD}</option>
-              <option value={CASH}>{CASH}</option>
-              <option value={INVOICE}>{INVOICE}</option>
-            </select>
-          </label>
+          <Select
+            onChange={onFilterChange}
+            name="paymentMethod"
+            options={[ALL, CARD, CASH, INVOICE]}
+            values={["", CARD, CASH, INVOICE]}
+            labelText="Payment method:"
+          />
         </section>
         <section>
-          <label>
-            Is paid:
-            <select onChange={onFilterChange} name="isPaid">
-              <option value="">All</option>
-              <option value="true">true</option>
-              <option value="false">false</option>
-            </select>
-          </label>
+          <Select
+            onChange={onFilterChange}
+            name="isPaid"
+            options={[ALL, "true", "false"]}
+            values={["", true, false]}
+            labelText="Is paid:"
+          />
         </section>
         <section>
-          <label>
-            Is new customer:
-            <select onChange={onFilterChange} name="isNewCustomer">
-              <option value="">All</option>
-              <option value="true">true</option>
-              <option value="false">false</option>
-            </select>
-          </label>
+          <Select
+            onChange={onFilterChange}
+            name="isNewCustomer"
+            options={[ALL, "true", "false"]}
+            values={["", true, false]}
+            labelText="Is new customer:"
+          />
         </section>
       </article>
 
@@ -248,41 +225,13 @@ const Table = ({ data, setData }) => {
         </tbody>
       </table>
 
-      <section className="pagination">
-        <label htmlFor="rows-per-page">Rows per page:</label>
-        <select
-          id="rows-per-page"
-          value={rowsPerPage}
-          onChange={handleChangeRowsPerPage}
-        >
-          <option value={10}>10</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
-        </select>
-
-        <span className="showing">
-          Showing {displayData.length ? page * rowsPerPage + 1 : 0}-
-          {Math.min((page + 1) * rowsPerPage, displayData.length)} of{" "}
-          {displayData.length}
-        </span>
-
-        <button
-          className="prev"
-          onClick={(e) => handleChangePage(e, page - 1)}
-          disabled={page === 0}
-        >
-          Prev
-        </button>
-
-        <button
-          className="next"
-          onClick={(e) => handleChangePage(e, page + 1)}
-          disabled={page >= Math.ceil(displayData.length / rowsPerPage) - 1}
-        >
-          Next
-        </button>
-      </section>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+        displayData={displayData}
+      />
     </section>
   );
 };

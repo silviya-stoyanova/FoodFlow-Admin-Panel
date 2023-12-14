@@ -1,6 +1,7 @@
 const MANAGE_ORDERS_TITLE = "Manage orders";
 
 const PAYMENT_METHODS = {
+  ALL: "All",
   CARD: "Card",
   CASH: "Cash",
   INVOICE: "Invoice",
