@@ -14,4 +14,11 @@ const STATUSES = {
   REJECTED: "Rejected",
 };
 
-export { MANAGE_ORDERS_TITLE, PAYMENT_METHODS, STATUSES };
+const DATE_TYPES = {
+  CREATED_DATE: "createdDate",
+  DELIVERED_DATE: "deliveredDate",
+  START: "start",
+  END: "end",
+};
+
+export { MANAGE_ORDERS_TITLE, PAYMENT_METHODS, STATUSES, DATE_TYPES };
