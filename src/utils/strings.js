@@ -20,7 +20,7 @@ const filtersDateElements = [
     type: START,
   },
   {
-    labelText: "Delivered after:",
+    labelText: "Delivered before:",
     column: DELIVERED_DATE,
     type: END,
   },

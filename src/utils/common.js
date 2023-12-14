@@ -11,6 +11,9 @@ const convertToTitleCase = (text) => {
 
 const reverseDate = (date) => date.split("/").reverse().join("/");
 
+const checkIsInRange = (date, startDate, endDate) =>
+  date >= startDate && date <= endDate;
+
 const formatBooleanCellWithIcon = (cell, truthyIcon, falsyIcon) =>
   cell.getValue() === true ? (
     <FontAwesomeIcon icon={truthyIcon} color="#656565" />
@@ -21,6 +24,7 @@ const formatBooleanCellWithIcon = (cell, truthyIcon, falsyIcon) =>
 export {
   formatCellWithDate,
   reverseDate,
+  checkIsInRange,
   convertToTitleCase,
   formatBooleanCellWithIcon,
 };
