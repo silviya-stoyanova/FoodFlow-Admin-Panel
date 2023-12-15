@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  DELETE_PROMPT_TEXT,
-  MANAGE_ORDERS_TITLE,
-  REJECT_PROMPT_TEXT,
-} from "../../utils/constants";
+import { MANAGE_ORDERS_TITLE } from "../../utils/constants";
 import { getOrdersData } from "../../services/get-data";
 import Table from "../table/Table";
 

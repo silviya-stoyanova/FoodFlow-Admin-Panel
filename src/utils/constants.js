@@ -1,6 +1,8 @@
 const MANAGE_ORDERS_TITLE = "Manage orders";
 const REJECT_PROMPT_TEXT = "Are you sure you want to reject this item?";
 const DELETE_PROMPT_TEXT = "Are you sure you want to delete this item?";
+const DATA_NOT_FOUND_TEXT = "No data was found.";
+const ACTIONS_COLUMN = "Actions";
 
 const PAYMENT_METHODS = {
   ALL: "All",
@@ -32,6 +34,8 @@ export {
   MANAGE_ORDERS_TITLE,
   REJECT_PROMPT_TEXT,
   DELETE_PROMPT_TEXT,
+  DATA_NOT_FOUND_TEXT,
+  ACTIONS_COLUMN,
   PAYMENT_METHODS,
   STATUSES,
   DATE_TYPES,

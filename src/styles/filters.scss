@@ -1,6 +1,7 @@
 .toggle-filters-button {
   @extend %primary-button;
   display: inline-flex;
+  min-width: 100px;
   align-items: center;
   margin: 6px 6px 16px;
   gap: 6px;
