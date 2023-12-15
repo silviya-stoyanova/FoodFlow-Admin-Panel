@@ -14,7 +14,7 @@ import { DataContext } from "../orders-table/OrdersTable";
 const { CREATED_DATE, DELIVERED_DATE } = DATE_TYPES;
 const { SHOW_FILTERS, HIDE_FILTERS } = FILTERS_LABELS;
 
-const Filters = ({ data, setDisplayData }) => {
+const Filters = ({ setDisplayData, setPage }) => {
   const [filters, setFilters] = useState({});
   const [filtersLabel, setFiltersLabel] = useState(SHOW_FILTERS);
   const { data } = useContext(DataContext);
@@ -59,6 +59,7 @@ const Filters = ({ data, setDisplayData }) => {
       return true;
     });
     setDisplayData(filteredData);
+    setPage(0);
   };
 
   const onFilterChange = (e, column = null, type = null) => {
