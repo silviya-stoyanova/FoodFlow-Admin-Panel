@@ -3,6 +3,8 @@ const REJECT_PROMPT_TEXT = "Are you sure you want to reject this item?";
 const DELETE_PROMPT_TEXT = "Are you sure you want to delete this item?";
 const DATA_NOT_FOUND_TEXT = "No data was found.";
 const ACTIONS_COLUMN = "Actions";
+const REJECT_TEXT = "Reject";
+const DELETE_TEXT = "Delete";
 
 const PAYMENT_METHODS = {
   ALL: "All",
@@ -36,6 +38,8 @@ export {
   DELETE_PROMPT_TEXT,
   DATA_NOT_FOUND_TEXT,
   ACTIONS_COLUMN,
+  REJECT_TEXT,
+  DELETE_TEXT,
   PAYMENT_METHODS,
   STATUSES,
   DATE_TYPES,

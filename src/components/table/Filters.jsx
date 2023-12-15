@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import {
   filtersDateElements,
@@ -9,6 +9,7 @@ import { checkIsInRange, reverseDate } from "../../utils/common";
 import Checkbox from "../common/Checkbox";
 import Calendar from "../common/Calendar";
 import Select from "../common/Select";
+import { DataContext } from "../orders-table/OrdersTable";
 
 const { CREATED_DATE, DELIVERED_DATE } = DATE_TYPES;
 const { SHOW_FILTERS, HIDE_FILTERS } = FILTERS_LABELS;
@@ -16,6 +17,7 @@ const { SHOW_FILTERS, HIDE_FILTERS } = FILTERS_LABELS;
 const Filters = ({ data, setDisplayData }) => {
   const [filters, setFilters] = useState({});
   const [filtersLabel, setFiltersLabel] = useState(SHOW_FILTERS);
+  const { data } = useContext(DataContext);
 
   useEffect(() => {
     filterData();

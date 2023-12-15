@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -7,25 +7,25 @@ import {
   STATUSES,
 } from "../../utils/constants";
 import Button from "../common/Button";
+import { DataContext } from "../orders-table/OrdersTable";
 
 const { REJECTED } = STATUSES;
 
 const TableActions = ({
   row,
-  data,
-  setData,
-  setDisplayData,
   setPage,
   isOneRowOnPage,
   rejectButtonTitle,
   deleteButtonTitle,
 }) => {
+  const { setData } = useContext(DataContext);
+
   const markAsRejected = (id) => {
     const confirmed = window.confirm(REJECT_PROMPT_TEXT);
 
     if (confirmed) {
-      setData(
-        data.map((row) => ({
+      setData((prevData) =>
+        prevData.map((row) => ({
           ...row,
           status: row.id === id ? REJECTED : row.status,
         }))
@@ -37,7 +37,7 @@ const TableActions = ({
     const confirmed = window.confirm(DELETE_PROMPT_TEXT);
 
     if (confirmed) {
-      setData(data.filter((row) => row.id !== id));
+      setData((prevData) => prevData.filter((row) => row.id !== id));
 
       if (isOneRowOnPage) {
         setPage(0);

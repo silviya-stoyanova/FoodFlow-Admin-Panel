@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { DataContext } from "../orders-table/OrdersTable";
 import Filters from "./Filters";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import Pagination from "./Pagination";
 
-const Table = ({ data, setData, rejectButtonTitle, deleteButtonTitle }) => {
+const Table = ({ rejectButtonTitle, deleteButtonTitle }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [displayData, setDisplayData] = useState([]);
+  const { data } = useContext(DataContext);
 
   const headers = data.length ? Object.keys(data[0]) : [];
   const firstRowOnPage = page * rowsPerPage;
@@ -19,18 +21,14 @@ const Table = ({ data, setData, rejectButtonTitle, deleteButtonTitle }) => {
 
   return (
     <section className="table-container">
-      {/* {console.log(data)} */}
-      <Filters data={data} setDisplayData={setDisplayData} />
+      <Filters setDisplayData={setDisplayData} />
 
       <article className="table-inner-container">
         <table className="table">
-          <TableHeader headers={headers} data={data} />
+          <TableHeader headers={headers} />
           <TableBody
             rows={rows}
             headers={headers}
-            data={data}
-            setData={setData}
-            setDisplayData={setDisplayData}
             setPage={setPage}
             rejectButtonTitle={rejectButtonTitle}
             deleteButtonTitle={deleteButtonTitle}

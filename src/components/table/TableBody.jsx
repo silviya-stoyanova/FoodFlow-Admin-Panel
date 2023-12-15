@@ -6,9 +6,6 @@ import TableActions from "./TableActions";
 const TableBody = ({
   rows,
   headers,
-  data,
-  setData,
-  setDisplayData,
   setPage,
   rejectButtonTitle,
   deleteButtonTitle,
@@ -29,9 +26,6 @@ const TableBody = ({
         ))}
         <TableActions
           row={row}
-          data={data}
-          setData={setData}
-          setDisplayData={setDisplayData}
           setPage={setPage}
           isOneRowOnPage={rows.length === 1}
           rejectButtonTitle={rejectButtonTitle}
