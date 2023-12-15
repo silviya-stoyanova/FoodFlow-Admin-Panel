@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import { convertToTitleCase } from "../../utils/common";
-import { ACTIONS_COLUMN, DATA_NOT_FOUND_TEXT } from "../../utils/constants";
+import {
+  ACTIONS_COLUMN,
+  DATA_NOT_FOUND_TEXT,
+  LOADING_TEXT,
+} from "../../utils/constants";
 import { DataContext } from "../orders-table/OrdersTable";
 
 const TableHeader = ({ headers }) => {
-  const { data } = useContext(DataContext);
+  const { data, isLoading } = useContext(DataContext);
 
   return (
     <thead className="table-head">
@@ -15,7 +19,11 @@ const TableHeader = ({ headers }) => {
           </th>
         ))}
         <th className="table-header">
-          {data.length ? ACTIONS_COLUMN : DATA_NOT_FOUND_TEXT}
+          {data.length
+            ? ACTIONS_COLUMN
+            : isLoading
+            ? LOADING_TEXT
+            : DATA_NOT_FOUND_TEXT}
         </th>
       </tr>
     </thead>

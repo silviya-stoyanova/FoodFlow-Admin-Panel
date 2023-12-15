@@ -1,8 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
 import {
+  REJECT_TEXT,
   DELETE_TEXT,
   MANAGE_ORDERS_TITLE,
-  REJECT_TEXT,
 } from "../../utils/constants";
 import { getOrdersData } from "../../services/get-data";
 import Table from "../table/Table";
@@ -22,7 +22,9 @@ const OrdersTable = () => {
   return (
     <main className="page">
       <h1 className="page-title">{MANAGE_ORDERS_TITLE}</h1>
-      <DataContext.Provider value={{ data, setData }}>
+      <DataContext.Provider
+        value={{ data, setData, isLoading: data.length === 0 }}
+      >
         <Table
           rejectButtonTitle={REJECT_TEXT}
           deleteButtonTitle={DELETE_TEXT}

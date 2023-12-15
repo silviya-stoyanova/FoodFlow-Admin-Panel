@@ -21,7 +21,7 @@ const Table = ({ rejectButtonTitle, deleteButtonTitle }) => {
 
   return (
     <section className="table-container">
-      <Filters setDisplayData={setDisplayData} />
+      <Filters setDisplayData={setDisplayData} setPage={setPage} />
 
       <article className="table-inner-container">
         <table className="table">

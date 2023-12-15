@@ -5,22 +5,22 @@ const { CREATED_DATE, DELIVERED_DATE, START, END } = DATE_TYPES;
 
 const filtersDateElements = [
   {
-    labelText: "Created after:",
+    labelText: "Created start date:",
     column: CREATED_DATE,
     type: START,
   },
   {
-    labelText: "Created before:",
+    labelText: "Created end date:",
     column: CREATED_DATE,
     type: END,
   },
   {
-    labelText: "Delivered after:",
+    labelText: "Delivered start date:",
     column: DELIVERED_DATE,
     type: START,
   },
   {
-    labelText: "Delivered before:",
+    labelText: "Delivered end date:",
     column: DELIVERED_DATE,
     type: END,
   },

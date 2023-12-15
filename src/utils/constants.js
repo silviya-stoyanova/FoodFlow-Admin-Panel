@@ -5,6 +5,7 @@ const DATA_NOT_FOUND_TEXT = "No data was found.";
 const ACTIONS_COLUMN = "Actions";
 const REJECT_TEXT = "Reject";
 const DELETE_TEXT = "Delete";
+const LOADING_TEXT = "Loading....";
 
 const PAYMENT_METHODS = {
   ALL: "All",
@@ -40,6 +41,7 @@ export {
   ACTIONS_COLUMN,
   REJECT_TEXT,
   DELETE_TEXT,
+  LOADING_TEXT,
   PAYMENT_METHODS,
   STATUSES,
   DATE_TYPES,
