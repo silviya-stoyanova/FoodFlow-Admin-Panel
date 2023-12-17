@@ -5,62 +5,24 @@ import {
   filtersSelectElements,
 } from "../../utils/strings";
 import { DATE_TYPES, FILTERS_LABELS } from "../../utils/constants";
-import { checkIsInRange, reverseDate } from "../../utils/common";
+import filterData from "../../utils/filter";
 import Checkbox from "../common/Checkbox";
 import Calendar from "../common/Calendar";
 import Select from "../common/Select";
 import { DataContext } from "../orders-table/OrdersTable";
+import { FiltersContext } from "./Table";
 
 const { CREATED_DATE, DELIVERED_DATE } = DATE_TYPES;
 const { SHOW_FILTERS, HIDE_FILTERS } = FILTERS_LABELS;
 
 const Filters = ({ setDisplayData, setPage }) => {
-  const [filters, setFilters] = useState({});
   const [filtersLabel, setFiltersLabel] = useState(SHOW_FILTERS);
   const { data } = useContext(DataContext);
+  const { filters, setFilters } = useContext(FiltersContext);
 
   useEffect(() => {
-    filterData();
+    filterData(data, filters, setDisplayData, setPage);
   }, [data, filters]);
-
-  const filterData = () => {
-    const filteredData = data.filter((item) => {
-      for (const key in filters) {
-        const { start: startDate, end: endDate } = filters[key];
-        const startDateFormatted =
-          startDate && new Date(reverseDate(startDate));
-        const endDateFormatted = endDate && new Date(reverseDate(endDate));
-        const isInRange = checkIsInRange(
-          item[key],
-          startDateFormatted,
-          endDateFormatted
-        );
-        const isBeforeStartDate =
-          startDate && item[key] < new Date(reverseDate(startDate));
-        const isAfterEndDate =
-          item[key] > endDateFormatted || item[key].length === 0;
-        const areDifferent = item[key].toString() !== filters[key].toString();
-
-        // if column does not store Date
-        if (key !== CREATED_DATE && key !== DELIVERED_DATE && areDifferent) {
-          return false;
-        }
-        if (startDate && endDate && !isInRange) {
-          return false;
-        }
-        if (startDate && isBeforeStartDate) {
-          return false;
-        }
-        if (endDate && isAfterEndDate) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-    setDisplayData(filteredData);
-    setPage(0);
-  };
 
   const onFilterChange = (e, column = null, type = null) => {
     const { name, value } = e.target;

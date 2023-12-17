@@ -7,6 +7,7 @@ const TableBody = ({
   rows,
   headers,
   setPage,
+  setDisplayData,
   rejectButtonTitle,
   deleteButtonTitle,
 }) => (
@@ -27,6 +28,7 @@ const TableBody = ({
         <TableActions
           row={row}
           setPage={setPage}
+          setDisplayData={setDisplayData}
           isOneRowOnPage={rows.length === 1}
           rejectButtonTitle={rejectButtonTitle}
           deleteButtonTitle={deleteButtonTitle}

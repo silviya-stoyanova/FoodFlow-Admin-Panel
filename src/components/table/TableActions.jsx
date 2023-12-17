@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -8,28 +8,35 @@ import {
 } from "../../utils/constants";
 import Button from "../common/Button";
 import { DataContext } from "../orders-table/OrdersTable";
+import { FiltersContext } from "./Table";
+import filterData from "../../utils/filter";
 
 const { REJECTED } = STATUSES;
 
 const TableActions = ({
   row,
   setPage,
+  setDisplayData,
   isOneRowOnPage,
   rejectButtonTitle,
   deleteButtonTitle,
 }) => {
-  const { setData } = useContext(DataContext);
+  const { data, setData } = useContext(DataContext);
+  const { filters } = useContext(FiltersContext);
 
   const markAsRejected = (id) => {
     const confirmed = window.confirm(REJECT_PROMPT_TEXT);
 
     if (confirmed) {
-      setData((prevData) =>
-        prevData.map((row) => ({
+      setData((prevData) => {
+        const updatedData = prevData.map((row) => ({
           ...row,
           status: row.id === id ? REJECTED : row.status,
-        }))
-      );
+        }));
+
+        filterData(updatedData, filters, setDisplayData, setPage);
+        return updatedData;
+      });
     }
   };
 

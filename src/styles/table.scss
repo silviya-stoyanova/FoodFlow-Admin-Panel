@@ -9,14 +9,17 @@
 
   .table-inner-container {
     overflow-x: auto;
-      min-height: 215px;
 
-    @media (min-width: 768px) {
-      min-height: 236px;
-    }
-    
-    @media (min-width: 992px) {
-        min-height: 260px;
+    &.with-pagination {
+      min-height: 230px;
+
+      @media (min-width: 768px) {
+        min-height: 254px;
+      }
+
+      @media (min-width: 992px) {
+        min-height: 278px;
+      }
     }
   }
 

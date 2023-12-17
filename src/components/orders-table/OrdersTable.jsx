@@ -11,11 +11,13 @@ const DataContext = createContext(null);
 
 const OrdersTable = () => {
   const [data, setData] = useState([]);
+  const [dataLength, setDataLength] = useState(0);
 
   useEffect(() => {
     (async () => {
       var ordersData = await getOrdersData();
       setData(ordersData);
+      setDataLength(ordersData.length);
     })();
   }, []);
 
@@ -23,11 +25,18 @@ const OrdersTable = () => {
     <main className="page">
       <h1 className="page-title">{MANAGE_ORDERS_TITLE}</h1>
       <DataContext.Provider
-        value={{ data, setData, isLoading: data.length === 0 }}
+        value={{
+          data,
+          setData,
+          dataLength,
+          isLoading: data.length === 0,
+        }}
       >
         <Table
           rejectButtonTitle={REJECT_TEXT}
           deleteButtonTitle={DELETE_TEXT}
+          shouldShowPagination
+          shouldShowFilters
         />
       </DataContext.Provider>
     </main>
